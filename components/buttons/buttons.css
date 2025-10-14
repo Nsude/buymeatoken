@@ -1,0 +1,23 @@
+button.primary-button,
+.primary-button-rect {
+	transition: height 0.25s cubic-bezier(0.76, 0, 0.24, 1), 
+    background 0.25s linear, color 0.25s linear;
+}
+
+button.primary-button:hover {
+  background: var(--color-accent-green);
+  color: black;
+}
+
+button.primary-button:hover ~ .primary-button-rect {
+  background: var(--color-accent-green);
+  height: calc(2.5rem - 8px);
+}
+
+button.primary-button svg path {
+  transition: stroke 0.25s linear;
+}
+
+button.primary-button:hover svg path {
+  stroke: black;
+}
