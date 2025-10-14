@@ -1,32 +1,28 @@
 @import "tailwindcss";
 
-:root {
-  --label-gray: #4A4A4A;
-  --dark-gray: #222222; /* bg-2 */
-  --border-dark-gray: #333333; /* bg-2-border */
-  --accent-green: #CCDE9C;
-  --accent-blue: #5DD4F5;
-  --darker-bg: #0D0D0D; /* transaction list label box bg */
-  --card-bg-gradient: linear-gradient(135deg, #191919 0%, #0C0C0C 100%);
-}
-
 @theme inline {
-  --color-label-gray: var(--label-gray);
-  --color-dark-gray: var(--dark-gray);
-  --color-border-dark-gray: var(--border-dark-gray);
-  --color-accent-green: var(--accent-green);
-  --color-accent-blue: var( --accent-blue);
-  --color-darker-bg: var(--darker-bg);
+  --color-label-gray: #4A4A4A;
+  --color-dark-gray: #222222; /* bg-2 */
+  --color-border-dark-gray: #333333; /* bg-2-border */
+  --color-accent-green: #CCDE9C;
+  --color-accent-blue: #5DD4F5;
+  --color-darker-bg: #0D0D0D; /* transaction list label box bg */
 
-  --background-image-card-bg-gradient: var(--card-bg-gradient);
+  --background-image-card-bg-gradient: linear-gradient(135deg, #191919 0%, #0C0C0C 100%);
 }
 
 body {
   font-size: 0.875rem; /* 14px */
   color: white;
   background-color: black;
+  line-height: 1;
 }
 
 button {
   cursor: pointer;
+}
+
+::selection {
+  background-color: var(--color-accent-blue);
+  color: black;
 }

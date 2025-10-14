@@ -24,7 +24,7 @@ export default function PrimaryButton(
         onClick={handleClick}
         className={`primary-button
           pl-[1.125rem] pr-[1.15625rem] h-[2.5rem] rounded-[8px] bg-dark-gray 
-          flex justify-center items-center gap-x-[3px]
+          flex justify-center items-center gap-x-[4px]
           ${fullyRounded ? 'rounded-full' : ''}
         `}
       >
