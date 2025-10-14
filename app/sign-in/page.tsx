@@ -23,7 +23,7 @@ export default function SignIn() {
   }
 
   return (
-    <div className="h-screen w-full relative">
+    <div className="h-screen w-full relative overflow-clip">
       <div className="relative h-full w-full flex flex-col justify-center 
         items-center gap-y-[2.5rem] overflow-clip z-10 bg-black/15 
         backdrop-blur-[100px]">
