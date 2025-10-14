@@ -5,7 +5,6 @@ import PrimaryButton from "../../components/buttons/PrimaryButton";
 import Logo from "../../components/global/Logo";
 import WalletIcon from "../../public/icons/WalletIcon";
 import { useState } from "react";
-import LoadingIcon from "../../public/icons/LoadingIcon";
 
 export default function SignIn() {
   const router = useRouter();
@@ -18,8 +17,10 @@ export default function SignIn() {
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
     // reroute
-    router.replace('/dashboard');
-    setIsLoading(false);
+    router.push('/dashboard');
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000) 
   }
 
   return (
@@ -34,7 +35,8 @@ export default function SignIn() {
 
         <PrimaryButton
           label="Connect Wallet"
-          Icon={isLoading ? <LoadingIcon /> : <WalletIcon />}
+          Icon={<WalletIcon />}
+          isLoading={isLoading}
           handleClick={handleSignIn}
         />
 

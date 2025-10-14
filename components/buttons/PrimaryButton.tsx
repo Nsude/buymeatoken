@@ -1,9 +1,11 @@
 "use client";
 import { useRef } from "react";
+import LoadingIcon from "../../public/icons/LoadingIcon";
 
 interface Props {
   label: string;
   Icon?: React.ReactNode;
+  isLoading?: boolean;
   fullyRounded?: boolean;
   handleClick: () => void;
 }
@@ -12,6 +14,7 @@ export default function PrimaryButton(
   {
     label,
     Icon,
+    isLoading,
     fullyRounded,
     handleClick
   }: Props
@@ -28,7 +31,8 @@ export default function PrimaryButton(
           ${fullyRounded ? 'rounded-full' : ''}
         `}
       >
-        {Icon && <span> {Icon} </span>}
+        {(Icon && !isLoading) && <span> {Icon} </span>}
+        {(Icon && isLoading) && <span> <LoadingIcon /> </span>}
         <span className="primary-label">{label}</span>
       </button>
       <span className="primary-button-rect h-[2.5rem] w-[7px] bg-dark-gray rounded-[2px]" />
