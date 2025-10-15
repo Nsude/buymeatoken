@@ -1,3 +1,4 @@
+button.nobg-button,
 button.card-button,
 button.primary-button,
 .primary-button-rect {
@@ -27,4 +28,11 @@ button.card-button:hover,
 button.selected-card-button {
   background: var(--color-accent-green);
   color: black;
+}
+
+
+/* NOBG BUTTON */
+button.nobg-button:hover,
+button.nobg-button.selected-nobg-button {
+  color: white;
 }

@@ -1,6 +1,6 @@
-import AllTimeDonationsCard from "../../components/global/AllTimeDonationsCard";
-import BalanceCard from "../../components/global/BalanceCard";
-import CreateLinkCard from "../../components/global/CreateLinkCard";
+import AllTimeDonationsCard from "../../components/dashboard/AllTimeDonationsCard";
+import BalanceCard from "../../components/dashboard/BalanceCard";
+import CreateLinkCard from "../../components/dashboard/CreateLinkCard";
 
 export default function Dashboard() {
   return (

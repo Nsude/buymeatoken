@@ -3,7 +3,7 @@
 import { useState } from "react";
 import PrimaryButton from "../../components/buttons/PrimaryButton";
 import DisconnectIcon from "../../public/icons/DisconnectIcon";
-import DashboardNavigation from "./DashboardNavigation";
+import DashboardNavigation from "../../components/dashboard/DashboardNavigation";
 import { useRouter } from "next/navigation";
 import "./dashboard.css";
 

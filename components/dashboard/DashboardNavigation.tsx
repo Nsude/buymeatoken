@@ -1,8 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import PrimaryButton from "../../components/buttons/PrimaryButton";
-import Logo from "../../components/global/Logo";
+import PrimaryButton from "../buttons/PrimaryButton";
+import Logo from "../global/Logo";
 import CollapseIcon from "../../public/icons/CollapseIcon";
 import DisconnectIcon from "../../public/icons/DisconnectIcon";
 import OverviewIcon from "../../public/icons/OverviewIcon";

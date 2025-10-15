@@ -17,3 +17,13 @@
 .selected-menuitem svg path {
   stroke: var(--color-accent-green);
 }
+
+/* widget view icons */
+.widget-icon svg path {
+  stroke: var(--color-label-gray);
+  transition: stroke 0.25s linear;
+}
+
+.widget-icon:hover svg path {
+  stroke: white;
+}
