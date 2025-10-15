@@ -12,6 +12,7 @@
   --background-image-card-bg-gradient: linear-gradient(135deg, #191919 0%, #0C0C0C 100%);
 
   /* TYPOGRAPHY */
+  --text-title-large: 3rem;
   --text-title: 1.5625rem;
   --text-smallest-label: 0.625rem;
 

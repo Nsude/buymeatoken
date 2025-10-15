@@ -20,7 +20,7 @@ export default function CreateLinkCard() {
   const [username, setUsername] = useState('');
 
   return (
-    <div className="relative w-full h-[17rem] bg-card-bg-gradient rounded-[6px] p-[0.9375rem]
+    <div className="relative w-full h-full bg-card-bg-gradient rounded-[6px] p-[0.9375rem]
     flex flex-col justify-between">
       {/* controls */}
       <div className="flex items-center gap-x-[3px]">
@@ -40,7 +40,9 @@ export default function CreateLinkCard() {
         selectedTab === "Social Link" &&
         <div className="flex gap-x-[3px]">
           <span className="flex-2 relative">
-            <span className="absolute -top-[60%] text-label-gray">This username will be shown to your donors.</span>
+            <span className="absolute -top-[60%] text-label-gray truncate">
+              This username will be shown to your donors.
+            </span>
             <CustomInputElement
               placeHolder="your socials username"
               handleChange={(e) => setUsername(e.currentTarget.value)}

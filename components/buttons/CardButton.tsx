@@ -22,7 +22,7 @@ export default function CardButton({label, handleClick, preselect}: Props) {
     <button 
       onClick={localHandleClick}
       className={`card-button px-[0.625rem] py-[0.5rem] rounded-full border-[1.3px] 
-      border-border-dark-gray ${preselect ? 'selected-card-button' : ''}`}>
+      border-border-dark-gray truncate ${preselect ? 'selected-card-button' : ''}`}>
         {label}
     </button>
   )
