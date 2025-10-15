@@ -27,7 +27,7 @@ export default function DashboardNavigation() {
   }
 
   return (
-    <nav className="relative px-[1.25rem] py-[1.375rem] bg-mybg w-[16.5rem] h-full">
+    <nav className="relative px-[1.25rem] py-[1.375rem] bg-mybg w-[16.5rem] h-screen">
       <div className="flex justify-between items-center mb-[5rem]">
         <Logo />
 
@@ -45,14 +45,14 @@ export default function DashboardNavigation() {
             icon={<OverviewIcon />}
             activities={30}
             preselect={true}
-            handleClick={() => console.log("")}
+            handleClick={() => router.push('/dashboard')}
           />
 
           <MenuItem
             label="Withdrawals"
             icon={<WithdrawIcon />}
             activities={5}
-            handleClick={() => console.log("")}
+            handleClick={() => router.push('/dashboard/withdrawals')}
           />
         </div>
       </div>
@@ -63,7 +63,7 @@ export default function DashboardNavigation() {
         <MenuItem
           label="Settings"
           icon={<UserIcon />}
-          handleClick={() => console.log("")}
+          handleClick={() => router.push('/dashboard/settings')}
         />
       </div>
 

@@ -33,7 +33,7 @@ export default function MenuItem(
     <button 
       onClick={handleLocalClick}
       className={`navigation-menuitem relative flex items-center 
-      gap-x-[0.5rem] rounded-[8px] h-[2.8125rem] w-full p-[5px] border 
+      gap-x-[0.5rem] rounded-[8px] h-[2.8125rem] w-full p-[5px] border-[1.3px] 
       border-border-dark-gray ${preselect ? 'selected-menuitem' : ''}`}>
       {/* Icon */}
       <div className="flex justify-center items-center h-[2.1875rem] aspect-square 

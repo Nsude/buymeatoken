@@ -11,7 +11,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-export default function DashboardLayout({children}: Props) {
+export default function DashboardLayout({ children }: Props) {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -23,14 +23,16 @@ export default function DashboardLayout({children}: Props) {
     router.replace("/sign-in");
     setTimeout(() => {
       setIsLoading(false);
-    }, 1000) 
+    }, 1000)
   }
 
   return (
     <div className="w-full h-screen relative flex items-start gap-x-[1.25rem]">
-      <DashboardNavigation />
+      <div className="flex-1">
+        <DashboardNavigation />
+      </div>
 
-      <div>
+      <div className="w-full h-full">
         {children}
       </div>
 
