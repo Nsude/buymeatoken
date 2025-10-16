@@ -3,11 +3,14 @@
 import InfoCard from "../../../components/dashboard/InfoCard";
 import CardWithButton from "../../../components/dashboard/CardWithButton";
 import EditIcon from "../../../public/icons/EditIcon";
+import { useRouter } from "next/navigation";
+import WithdrawalsInputCard from "../../../components/dashboard/WithdrawalsInputCard";
 
 export default function Withdrawals() {
+  const router = useRouter();
 
   const handleUpdateAddress = () => {
-
+    router.push('/dashboard/settings');
   }
 
   return (
@@ -18,6 +21,7 @@ export default function Withdrawals() {
         <span className="text-label-gray">Send your tokens to your local wallet.</span>
       </span>
 
+      {/* Top Cards */}
       <div className="flex items-center gap-x-[3px] min-h-[15.5rem]">
         <div className="w-[30%] h-full">
           <InfoCard
@@ -45,6 +49,13 @@ export default function Withdrawals() {
             handleClick={handleUpdateAddress}
           />
         </div>
+      </div>
+
+      {/* Withdraw Card */}
+      <div className="w-[45%] 2xl:w-[40%] h-fit">
+        <WithdrawalsInputCard 
+          handleSubmit={() => {}}
+        />
       </div>
     </div>
   )
