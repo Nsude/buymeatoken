@@ -27,7 +27,7 @@ export default function DashboardLayout({ children }: Props) {
   }
 
   return (
-    <div className="w-full h-screen relative flex items-start gap-x-[1.25rem]">
+    <div className="w-full h-screen overflow-clip relative flex items-start gap-x-[1.25rem]">
       <div className="flex-1">
         <DashboardNavigation />
       </div>

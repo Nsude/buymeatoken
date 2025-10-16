@@ -5,11 +5,11 @@ import WithdrawIcon from "../../public/icons/WithdrawIcon";
 import PrimaryButton from "../buttons/PrimaryButton";
 
 interface Props {
-  balance: number;
-  handleWithdraw: () => void;
+  address: number;
+  handleUpdateAddress: () => void;
 }
 
-export default function BalanceCard({ balance, handleWithdraw }: Props) {
+export default function WalletAddressCard({ address, handleUpdateAddress }: Props) {
   return (
     <div className="relative flex justify-between w-full h-full bg-card-bg-gradient 
     rounded-[6px] p-[0.9375rem]">
@@ -19,7 +19,7 @@ export default function BalanceCard({ balance, handleWithdraw }: Props) {
           <span>Balance</span>
           <span className="flex items-end gap-x-[0.625rem]">
             <span className="text-title-large leading-[0.9] text-white truncate">
-              {balance === 0 ? "0.0" : balance}
+              {address === 0 ? "0.0" : address}
             </span>
             <span>SOL</span>
           </span>
@@ -28,7 +28,7 @@ export default function BalanceCard({ balance, handleWithdraw }: Props) {
         <PrimaryButton 
           label="withdraw"
           Icon={<WithdrawIcon />}
-          handleClick={handleWithdraw}
+          handleClick={handleUpdateAddress}
         />
       </div>
 

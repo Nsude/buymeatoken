@@ -33,9 +33,11 @@ export default function TransactionListItem() {
       </div>
 
       {/* Token Logo */}
-      <LogoTokenIcon color="#4A4A4A" size={22} />
+      <span className="hidden 2xl:block">
+        <LogoTokenIcon color="#4A4A4A" size={22} />
+      </span>
 
-      <div>
+      <div className="text-nowrap">
         <div className="flex items-center justify-end gap-x-[0.625rem] mb-1.5">
           <span>{0.382} &nbsp; {"ACR"}</span>
           <ChevronRightIcon size={18} />

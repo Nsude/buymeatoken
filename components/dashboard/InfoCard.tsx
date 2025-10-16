@@ -2,14 +2,16 @@ import WalletIcon from "../../public/icons/WalletIcon";
 import { getTimeAgo } from "../../utility/timeAgo";
 
 interface Props {
-  donations: number;
+  firstLabel: string;
+  value: number;
   toUSD: number;
-  lastUpdated: number;
+  lastUpdated?: number;
 }
 
-export default function AllTimeDonationsCard (
+export default function InfoCard(
   {
-    donations,
+    firstLabel,
+    value,
     toUSD,
     lastUpdated
   }: Props
@@ -20,10 +22,10 @@ export default function AllTimeDonationsCard (
       {/* Left side */}
       <div className="flex flex-col justify-between w-[80%]">
         <div className="flex flex-col gap-y-[0.9375rem] text-label-gray">
-          <span>All Time Donations</span>
+          <span>{firstLabel}</span>
           <span className="flex items-end gap-x-[0.625rem]">
             <span className="text-title-large leading-[0.9] text-white truncate">
-              {donations === 0 ? "0.0" : donations}
+              {value === 0 ? "0.0" : value}
             </span>
             <span>SOL</span>
           </span>
@@ -47,7 +49,9 @@ export default function AllTimeDonationsCard (
           <WalletIcon />
         </span>
 
-        <span className="text-label-gray"> {getTimeAgo(lastUpdated)} </span>
+        { lastUpdated &&
+          <span className="text-label-gray"> {getTimeAgo(lastUpdated)} </span>
+        }
       </div>
     </div>
   )
