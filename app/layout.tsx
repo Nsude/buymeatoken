@@ -4,7 +4,7 @@ import "../components/buttons/buttons.css";
 import localFont from 'next/font/local'
 
 export const metadata: Metadata = {
-  title: "Buy Me a Token",
+  title: "BuyMeAToken",
   description: "Appreciate your favourite creators.",
 };
 

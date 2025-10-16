@@ -8,6 +8,7 @@
   --color-accent-green: #CCDE9C;
   --color-accent-blue: #5DD4F5;
   --color-darker-bg: #0D0D0D; /* transaction list label box bg */
+  --color-t-list-bg: #141414; /* transaction list item bg */
 
   --background-image-card-bg-gradient: linear-gradient(135deg, #191919 0%, #0C0C0C 100%);
 
@@ -15,7 +16,7 @@
   --text-title-large: 3rem;
   --text-title: 1.5625rem;
   --text-smallest-label: 0.625rem;
-
+  --text-small-label: 0.75rem;
 }
 
 body {
@@ -36,4 +37,29 @@ button {
 ::selection {
   background-color: var(--color-accent-blue);
   color: black;
+}
+
+/* Hide scrollbar */
+*.hide-scrollbar::-webkit-scrollbar,
+*.hide-chrome-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+*.hide-scrollbar {
+  -ms-overflow-style: none; 
+  scrollbar-width: none;
+}
+
+*.slim-scrollbar {
+  scrollbar-color: var(--fade-gray) transparent;
+  scrollbar-width: thin;
+  scrollbar-gutter: stable;
+}
+
+*.slim-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+ 
+*.slim-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.4);
 }
