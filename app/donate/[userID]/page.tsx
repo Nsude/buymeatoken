@@ -1,18 +1,19 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import PrimaryButton from "../../components/buttons/PrimaryButton";
-import Logo from "../../components/global/Logo";
-import WalletIcon from "../../public/icons/WalletIcon";
+import PrimaryButton from "../../../components/buttons/PrimaryButton";
+import Logo from "../../../components/global/Logo";
+import WalletIcon from "../../../public/icons/WalletIcon";
 import { useState } from "react";
+import DonationCard from "../../../components/donate/DonationCard";
 
-export default function SignIn() {
+export default function Donate() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSignIn = async () => {
     setIsLoading(true);
-    
+
     // connect wallet logic
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
@@ -20,26 +21,25 @@ export default function SignIn() {
     router.push('/dashboard');
     setTimeout(() => {
       setIsLoading(false);
-    }, 1000) 
+    }, 1000)
   }
 
   return (
-    <div className="h-screen w-full relative overflow-clip">
-      <div className="relative h-full w-full flex flex-col justify-center 
-        items-center gap-y-[2.5rem] overflow-clip z-10 bg-black/15 
+    <div className="h-screen w-full relative overflow-clip flex flex-col items-center 
+    justify-center">
+      <div className="relative h-full w-full flex flex-col 
+        justify-center items-center gap-y-[2.5rem] overflow-clip z-5 bg-black/15 
         backdrop-blur-[100px]">
-        <div className="flex flex-col items-center gap-y-1.5">
-          <Logo />
+        <div className="flex flex-col items-center gap-y-[0.75rem]">
+          <span className="text-title">Buy Meshach a Token</span>
           <span className="text-label-gray">Send tokens, not coffee.</span>
         </div>
 
-        <PrimaryButton
-          label="Connect Wallet"
-          Icon={<WalletIcon />}
-          isLoading={isLoading}
-          handleClick={handleSignIn}
-        />
-
+        <div className="relative z-10 w-[80%] md:w-[60%] xl:w-[50%] 2xl:w-[33%]">
+          <DonationCard
+            handleSubmit={() => { }}
+          />
+        </div>
       </div>
 
       {/* Blops */}

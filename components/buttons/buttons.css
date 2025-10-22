@@ -1,3 +1,5 @@
+button.nobg-button,
+button.card-button,
 button.primary-button,
 .primary-button-rect {
 	transition: height 0.25s cubic-bezier(0.76, 0, 0.24, 1), 
@@ -20,4 +22,17 @@ button.primary-button svg path {
 
 button.primary-button:hover svg path {
   stroke: black;
+}
+
+button.card-button:hover,
+button.selected-card-button {
+  background: var(--color-accent-green);
+  color: black;
+}
+
+
+/* NOBG BUTTON */
+button.nobg-button:hover,
+button.nobg-button.selected-nobg-button {
+  color: white;
 }

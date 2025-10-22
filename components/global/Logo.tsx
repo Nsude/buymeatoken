@@ -1,5 +1,8 @@
+
 export default function Logo() {
   return (
-    <h3 className="font-medium text-[1rem]">Buy Me a Token</h3>
+    <div className=" flex items-center gap-x-2">
+      <h3 className="font-medium text-[1rem]">buymeatoken</h3> 
+    </div>
   )
 }

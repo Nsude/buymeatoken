@@ -1,0 +1,29 @@
+.navigation-menuitem {
+  transition: background 0.25s linear, color 0.25s linear;
+}
+
+.navigation-menuitem:hover,
+.selected-menuitem {
+  background: var(--color-accent-green);
+  color: black;
+}
+
+.navigation-menuitem:hover .activity-span,
+.selected-menuitem .activity-span {
+  color: var(--color-accent-green);
+}
+
+.navigation-menuitem:hover svg path,
+.selected-menuitem svg path {
+  stroke: var(--color-accent-green);
+}
+
+/* widget view icons */
+.widget-icon svg path {
+  stroke: var(--color-label-gray);
+  transition: stroke 0.25s linear;
+}
+
+.widget-icon:hover svg path {
+  stroke: white;
+}
