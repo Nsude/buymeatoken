@@ -1,26 +1,26 @@
 button.nobg-button,
 button.card-button,
-button.primary-button,
+.primary-button,
 .primary-button-rect {
 	transition: height 0.25s cubic-bezier(0.76, 0, 0.24, 1), 
     background 0.25s linear, color 0.25s linear;
 }
 
-button.primary-button:hover {
+.primary-button:hover {
   background: var(--color-accent-green);
   color: black;
 }
 
-button.primary-button:hover ~ .primary-button-rect {
+.primary-button:hover ~ .primary-button-rect {
   background: var(--color-accent-green);
   height: calc(2.5rem - 8px);
 }
 
-button.primary-button svg path {
+.primary-button svg path {
   transition: stroke 0.25s linear;
 }
 
-button.primary-button:hover svg path {
+.primary-button:hover svg path {
   stroke: black;
 }
 
@@ -35,4 +35,16 @@ button.selected-card-button {
 button.nobg-button:hover,
 button.nobg-button.selected-nobg-button {
   color: white;
+}
+
+/* Wallet Adapter button */
+.wallet-adapter-button.wallet-adapter-button-trigger {
+  background: transparent !important;
+  transition: color 0.25s linear;
+  font-family: "OSG" !important;
+  font-size: 0.875rem !important;
+}
+
+.primary-button:hover .wallet-adapter-button {
+  color: black !important;
 }

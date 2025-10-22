@@ -9,22 +9,35 @@ import OverviewIcon from "../../public/icons/OverviewIcon";
 import UserIcon from "../../public/icons/UserIcon";
 import WithdrawIcon from "../../public/icons/WithdrawIcon";
 import MenuItem from "./MenuItem";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useWallet } from "@solana/wallet-adapter-react";
 
 export default function DashboardNavigation() {
-  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-
-  const handleDisconnect = async () => {
-    setIsLoading(true);
-
-    // disconnect logic
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    router.replace("/sign-in");
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000) 
-  }
+    const { disconnect, select, connected } = useWallet();
+    const router = useRouter();
+  
+    useEffect(() => {
+      if (!connected) {
+        router.replace('/sign-in');
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 1000)
+      }
+  
+    }, [router, connected])
+  
+    const handleDisconnect = async () => {
+      setIsLoading(true);
+  
+      try {
+        await disconnect();   // disconnects wallet session
+        select(null);         // clears wallet selection
+        
+      } catch (err) {
+        console.error("Error disconnecting wallet:", err);
+      }
+    }
 
   return (
     <nav className="relative px-[1.25rem] py-[1.375rem] bg-mybg w-[16.5rem] h-screen">
