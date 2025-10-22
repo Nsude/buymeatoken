@@ -19,6 +19,13 @@
   --text-small-label: 0.75rem;
 }
 
+@font-face {
+  font-family: "OSG";
+  src: url("../public/font/osg-regular.otf");
+  font-weight: 300;
+  font-style: normal;
+}
+
 body {
   font-size: 0.875rem; /* 14px */
   color: white;
