@@ -1,27 +1,24 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import PrimaryButton from "../../components/buttons/PrimaryButton";
 import Logo from "../../components/global/Logo";
-import WalletIcon from "../../public/icons/WalletIcon";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useWallet } from "@solana/wallet-adapter-react";
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 
 export default function SignIn() {
+  const {
+    connected,
+    publicKey,
+  } = useWallet();
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSignIn = async () => {
-    setIsLoading(true);
-    
-    // connect wallet logic
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-
-    // reroute
-    router.push('/dashboard');
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000) 
-  }
+  // Redirect to dashboard when wallet connects
+  useEffect(() => {
+    if (connected && publicKey) {
+      router.push('/dashboard');
+    }
+  }, [connected, publicKey, router]);
 
   return (
     <div className="h-screen w-full relative overflow-clip">
@@ -33,12 +30,16 @@ export default function SignIn() {
           <span className="text-label-gray">Send tokens, not coffee.</span>
         </div>
 
-        <PrimaryButton
-          label="Connect Wallet"
-          Icon={<WalletIcon />}
-          isLoading={isLoading}
-          handleClick={handleSignIn}
-        />
+        <div className="flex items-center gap-x-[3px] cursor-pointer">
+          <div
+            className={`primary-button
+            pl-[1.125rem] pr-[1.15625rem] h-[2.8125rem] rounded-[8px] bg-dark-gray 
+            flex justify-center items-center gap-x-[4px] `}>
+            <WalletMultiButton />
+          </div>
+          <span className="primary-button-rect h-[2.5rem] w-[7px] bg-dark-gray rounded-[2px]" />
+        </div>
+
 
       </div>
 

@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PrimaryButton from "../../components/buttons/PrimaryButton";
 import DisconnectIcon from "../../public/icons/DisconnectIcon";
 import DashboardNavigation from "../../components/dashboard/DashboardNavigation";
 import { useRouter } from "next/navigation";
 import "./dashboard.css";
+import { useWallet } from "@solana/wallet-adapter-react";
 
 interface Props {
   children: React.ReactNode;
@@ -13,17 +14,29 @@ interface Props {
 
 export default function DashboardLayout({ children }: Props) {
   const [isLoading, setIsLoading] = useState(false);
+  const { disconnect, select, connected } = useWallet();
   const router = useRouter();
+
+  useEffect(() => {
+    if (!connected) {
+      router.replace('/sign-in');
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000)
+    }
+
+  }, [router, connected])
 
   const handleDisconnect = async () => {
     setIsLoading(true);
 
-    // disconnect logic
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    router.replace("/sign-in");
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000)
+    try {
+      await disconnect();   // disconnects wallet session
+      select(null);         // clears wallet selection
+      
+    } catch (err) {
+      console.error("Error disconnecting wallet:", err);
+    }
   }
 
   return (
