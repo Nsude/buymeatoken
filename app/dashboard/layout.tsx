@@ -14,18 +14,16 @@ interface Props {
 
 export default function DashboardLayout({ children }: Props) {
   const [isLoading, setIsLoading] = useState(false);
-  const { disconnect, select, connected } = useWallet();
+  const { disconnect, select, connected, connecting, wallet } = useWallet();
   const router = useRouter();
 
   useEffect(() => {
-    if (!connected) {
+    if (!connecting && !connected && !wallet) {
       router.replace('/sign-in');
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 1000)
+      setTimeout(() => setIsLoading(false), 1000);
     }
 
-  }, [router, connected])
+  }, [router, connected, connecting, wallet])
 
   const handleDisconnect = async () => {
     setIsLoading(true);

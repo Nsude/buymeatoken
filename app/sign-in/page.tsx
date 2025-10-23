@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import Logo from "../../components/global/Logo";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 
