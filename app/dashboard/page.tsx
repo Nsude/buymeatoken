@@ -11,7 +11,7 @@ export default function Dashboard() {
   const router = useRouter();
 
   const handleWithdraw = () => {
-    localStorage.setItem('selectedMenu', 'Withdrawals');
+    // localStorage.setItem('selectedMenu', 'Withdrawals');
     router.push('/dashboard/withdrawals');
   }
 
