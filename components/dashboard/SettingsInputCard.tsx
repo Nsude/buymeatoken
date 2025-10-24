@@ -1,10 +1,12 @@
 "use client";
 
+import { useRef, useState } from "react";
 import EditIcon from "../../public/icons/EditIcon";
-import UserIcon from "../../public/icons/UserIcon";
 import PrimaryButton from "../buttons/PrimaryButton";
 import CustomInputElement from "../global/CustomInput";
 import CopyButton from "./CopyButton";
+import { useLoadingButton } from "../contexts/ButtonLoadingContext";
+import { ButtonLabel } from "../../app.models";
 
 interface Props {
   cardLabel: string;
@@ -15,7 +17,9 @@ interface Props {
   firstInputValue: string;
   secondPlaceholder: string;
   makeFirstInputReadonly?: boolean;
-  handleSubmit: () => void;
+  secondInputRegex?: RegExp;
+  buttonTitle: ButtonLabel;
+  handleSubmit: (value: string) => void;
 }
 
 export default function SettingInputCard(
@@ -28,9 +32,18 @@ export default function SettingInputCard(
     firstInputValue,
     secondPlaceholder,
     makeFirstInputReadonly,
+    secondInputRegex,
+    buttonTitle,
     handleSubmit,
   }: Props
 ) {
+  const newSecondInputValue = useRef<string>('');
+  const [isSecondInputValid, setIsSecondInputValid] = useState(false); 
+  const {loadingKeys} = useLoadingButton()
+  
+  const handleValueChange = (value: string | number) => {
+    newSecondInputValue.current = value.toString();
+  }
 
   const handleCopyValue = () => {
     navigator.clipboard.writeText(firstInputValue)
@@ -69,16 +82,21 @@ export default function SettingInputCard(
           <CustomInputElement
             placeHolder={secondPlaceholder}
             label={secondInputLabel}
-            value=""
-            onValueChange={() => { }}
+            onValueChange={handleValueChange}
+            regex={secondInputRegex || undefined}
+            onValidationChange={setIsSecondInputValid}
           />
         </div>
       </div>
 
       <PrimaryButton
-        label="Update"
+        label={buttonTitle}
         Icon={<EditIcon />}
-        handleClick={handleSubmit}
+        isLoading={loadingKeys[buttonTitle]}
+        handleClick={() => {
+          if (!isSecondInputValid) return;
+          handleSubmit(newSecondInputValue.current);
+        }}
       />
     </div>
   )

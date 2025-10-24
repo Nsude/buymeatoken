@@ -1,9 +1,53 @@
 "use client";
 
+import { useState } from "react";
+import { useCurrentUser } from "../../../components/contexts/UserContextProvider";
 import SettingInputCard from "../../../components/dashboard/SettingsInputCard";
 import UserIcon from "../../../public/icons/UserIcon";
+import { useLoadingButton } from "../../../components/contexts/ButtonLoadingContext";
 
 export default function Settings() {
+  const { user } = useCurrentUser();
+  const {setLoadingButton} = useLoadingButton();
+
+  const updateWalletAddress = async (value: string) => {
+    if (!user) return;
+
+    // set button loading state
+    setLoadingButton("Update Wallet Address", true);
+
+    const endpoint =
+      "https://buymeatoken-production.up.railway.app/api/user/changeWithdrawalAddress";
+
+    const addressFormData = new FormData();
+    addressFormData.append("address", value);
+
+      try {
+      const authToken = sessionStorage.getItem("authToken");
+      if (!authToken) throw new Error("Auth Token is undefined");
+
+      const response = await fetch(endpoint, {
+        method: "PUT",
+        headers: {"auth-token": authToken},
+        body: addressFormData
+      })
+
+      const result = await response.json();
+      console.log(result);
+
+      // TODO: success toast
+    } catch (error) {
+      console.error("Error updating wallet address: ", error);
+      // TODO: Display toast notification
+    } finally {
+      setLoadingButton("Update Wallet Address", false);
+    }
+  }
+
+  const updateUsername = async (value: string) => {
+
+  }
+
   return (
     <div className="py-[1.375rem] min-w-full max-w-[calc(100%-17.75rem)] h-screen 
     pr-[1.375rem] overflow-clip">
@@ -23,7 +67,8 @@ export default function Settings() {
             secondInputLabel="New"
             firstInputValue="Meshach"
             secondPlaceholder="new username"
-            handleSubmit={() => { }}
+            buttonTitle="Update Username"
+            handleSubmit={updateUsername}
           />
         </div>
         <div className="w-[55%]">
@@ -33,10 +78,12 @@ export default function Settings() {
             cardIcon={<UserIcon />}
             firstInputLabel="Current"
             secondInputLabel="New"
-            firstInputValue="DyT6CqGVNHHVm9WTkVZJg3Mw4YQ9C9jh3MAx5rKkPPM2"
+            firstInputValue={user?.withdrawAddress || ''}
             makeFirstInputReadonly={true}
             secondPlaceholder="paste address"
-            handleSubmit={() => { }}
+            buttonTitle="Update Wallet Address"
+            secondInputRegex={/^[1-9A-HJ-NP-Za-km-z]{43,44}$/} // solana base 58 address regex
+            handleSubmit={updateWalletAddress}
           />
         </div>
       </div>

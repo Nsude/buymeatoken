@@ -7,6 +7,7 @@ import DashboardNavigation from "../../components/dashboard/DashboardNavigation"
 import { useRouter } from "next/navigation";
 import "./dashboard.css";
 import { useWallet } from "@solana/wallet-adapter-react";
+import { UserContextProvider } from "../../components/contexts/UserContextProvider";
 
 interface Props {
   children: React.ReactNode;
@@ -38,23 +39,25 @@ export default function DashboardLayout({ children }: Props) {
   }
 
   return (
-    <div className="w-full h-screen overflow-clip relative flex items-start gap-x-[1.25rem]">
-      <div className="flex-1">
-        <DashboardNavigation />
-      </div>
+    <UserContextProvider>
+      <div className="w-full h-screen overflow-clip relative flex items-start gap-x-[1.25rem]">
+        <div className="flex-1">
+          <DashboardNavigation />
+        </div>
 
-      <div className="w-full h-full">
-        {children}
-      </div>
+        <div className="w-full h-full">
+          {children}
+        </div>
 
-      <span className="absolute right-[1.25rem] top-[1.375rem]">
-        <PrimaryButton
-          label="Disconnect"
-          Icon={<DisconnectIcon />}
-          isLoading={isLoading}
-          handleClick={handleDisconnect}
-        />
-      </span>
-    </div>
+        <span className="absolute right-[1.25rem] top-[1.375rem]">
+          <PrimaryButton
+            label="Disconnect"
+            Icon={<DisconnectIcon />}
+            isLoading={isLoading}
+            handleClick={handleDisconnect}
+          />
+        </span>
+      </div>
+    </UserContextProvider>
   )
 }
