@@ -21,23 +21,28 @@ export default function DashboardNavigation() {
   const [lastVisitedMenu, setLastVisitedMenu] = useState('');
 
   useEffect(() => {
-    const menu = localStorage.getItem("selectedMenu") || 'Overview';
-    setLastVisitedMenu(menu);
-  }, [pathname])
-  
-    const handleDisconnect = async () => {
-      setIsLoading(true);
-  
-      try {
-        await disconnect();   // disconnects wallet session
-        select(null);         // clears wallet selection
-        
-        router.replace('sign-in');
-        setTimeout(() => setIsLoading(false), 1000);
-      } catch (err) {
-        console.error("Error disconnecting wallet:", err);
-      }
+    if (pathname === '/dashboard') {
+      setLastVisitedMenu('overview');
+    } else {
+      // remove leading slash and convert to Sentence case
+      const formatted = pathname.replace('/dashboard/', '');
+      setLastVisitedMenu(formatted.toLowerCase());
     }
+  }, [pathname])
+
+  const handleDisconnect = async () => {
+    setIsLoading(true);
+
+    try {
+      await disconnect();   // disconnects wallet session
+      select(null);         // clears wallet selection
+
+      router.replace('sign-in');
+      setTimeout(() => setIsLoading(false), 1000);
+    } catch (err) {
+      console.error("Error disconnecting wallet:", err);
+    }
+  }
 
   return (
     <nav className="relative px-[1.25rem] py-[1.375rem] bg-mybg w-[16.5rem] h-screen">
@@ -57,7 +62,7 @@ export default function DashboardNavigation() {
             label="Overview"
             icon={<OverviewIcon />}
             activities={30}
-            preselect={lastVisitedMenu === "Overview"}
+            preselect={lastVisitedMenu === "overview"}
             handleClick={() => router.push('/dashboard')}
           />
 
@@ -65,7 +70,7 @@ export default function DashboardNavigation() {
             label="Withdrawals"
             icon={<WithdrawIcon />}
             activities={5}
-            preselect={lastVisitedMenu === "Withdrawals"}
+            preselect={lastVisitedMenu === "withdrawals"}
             handleClick={() => router.push('/dashboard/withdrawals')}
           />
         </div>
@@ -77,7 +82,7 @@ export default function DashboardNavigation() {
         <MenuItem
           label="Settings"
           icon={<UserIcon />}
-          preselect={lastVisitedMenu === "Settings"}
+          preselect={lastVisitedMenu === "settings"}
           handleClick={() => router.push('/dashboard/settings')}
         />
       </div>

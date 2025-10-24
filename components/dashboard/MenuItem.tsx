@@ -1,8 +1,5 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-
-
 interface Props {
   icon: React.ReactNode;
   label: string;
@@ -20,18 +17,6 @@ export default function MenuItem(
     handleClick
   } : Props
 ) {
-  const buttonRef = useRef(null);
-
-  useEffect(() => {
-    if (!buttonRef.current) return;
-    const selelctedMenu = localStorage.getItem("selectedMenu");
-    const isCurrent = label === selelctedMenu;
-
-    if (!isCurrent) return;
-    const btn = buttonRef.current as HTMLButtonElement;
-    selectNewMenu(btn);
-
-  }, [label, buttonRef])
 
   // deselect prev menu and select new one
   const selectNewMenu = (newBtn: HTMLButtonElement ) => {
@@ -45,15 +30,11 @@ export default function MenuItem(
     const {currentTarget} = e;
     handleClick();
 
-    // update local storage
-    localStorage.setItem('selectedMenu', label);
-
     selectNewMenu(currentTarget as HTMLButtonElement);
   }
 
   return (
     <button 
-      ref={buttonRef}
       onClick={handleLocalClick}
       className={`navigation-menuitem relative flex items-center 
       gap-x-[0.5rem] rounded-[8px] h-[2.8125rem] w-full p-[5px] border-[1.3px] 
