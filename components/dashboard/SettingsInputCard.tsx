@@ -12,7 +12,7 @@ interface Props {
   cardIcon: React.ReactNode;
   firstInputLabel: string;
   secondInputLabel: string;
-  firstPlaceholder: string;
+  firstInputValue: string;
   secondPlaceholder: string;
   makeFirstInputReadonly?: boolean;
   handleSubmit: () => void;
@@ -25,12 +25,19 @@ export default function SettingInputCard(
     cardIcon,
     firstInputLabel,
     secondInputLabel,
-    firstPlaceholder,
+    firstInputValue,
     secondPlaceholder,
     makeFirstInputReadonly,
     handleSubmit,
   }: Props
 ) {
+
+  const handleCopyValue = () => {
+    navigator.clipboard.writeText(firstInputValue)
+    .then(() => { /* display toast notification */ });
+  }
+
+  // JSX
   return (
     <div className="relative w-full h-fit bg-card-bg-gradient rounded-[8px] p-[0.9375rem]">
       {/* card icon */}
@@ -49,12 +56,12 @@ export default function SettingInputCard(
       <div className="flex flex-col gap-y-[1.25rem] mb-[3rem]">
         {/* Input 1 */}
         <CustomInputElement
-          placeHolder={firstPlaceholder}
+          placeHolder={''}
           label={firstInputLabel}
-          value=""
-          handleChange={() => { }}
+          value={firstInputValue}
           readonly={makeFirstInputReadonly}
           addon={makeFirstInputReadonly ? <CopyButton /> : null}
+          onAddonClick={handleCopyValue}
         />
 
         {/* Input 2 */}
@@ -63,7 +70,7 @@ export default function SettingInputCard(
             placeHolder={secondPlaceholder}
             label={secondInputLabel}
             value=""
-            handleChange={() => { }}
+            onValueChange={() => { }}
           />
         </div>
       </div>

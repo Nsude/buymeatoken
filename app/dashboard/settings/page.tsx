@@ -19,8 +19,9 @@ export default function Settings() {
             cardDesc="This will be used for your donation link and screen."
             cardIcon={<UserIcon />}
             firstInputLabel="Current"
+            makeFirstInputReadonly={true}
             secondInputLabel="New"
-            firstPlaceholder="Meshach"
+            firstInputValue="Meshach"
             secondPlaceholder="new username"
             handleSubmit={() => { }}
           />
@@ -32,7 +33,7 @@ export default function Settings() {
             cardIcon={<UserIcon />}
             firstInputLabel="Current"
             secondInputLabel="New"
-            firstPlaceholder="DyT6CqGVNHHVm9WTkVZJg3Mw4YQ9C9jh3MAx5rKkPPM2"
+            firstInputValue="DyT6CqGVNHHVm9WTkVZJg3Mw4YQ9C9jh3MAx5rKkPPM2"
             makeFirstInputReadonly={true}
             secondPlaceholder="paste address"
             handleSubmit={() => { }}

@@ -31,6 +31,7 @@ body {
   color: white;
   background-color: black;
   line-height: 1;
+  font-family:  "OSG", Helvetica, sans-serif;
 }
 
 *, *::before, *::after {
@@ -69,4 +70,17 @@ button {
  
 *.slim-scrollbar::-webkit-scrollbar-thumb {
   background: rgba(0, 0, 0, 0.4);
+}
+
+
+/* Hide number input range selector */
+.no-spin::-webkit-inner-spin-button,
+.no-spin::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.no-spin {
+  -moz-appearance: textfield;
+  appearance: textfield;
 }
