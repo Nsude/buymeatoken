@@ -22,6 +22,8 @@ export default function SignIn() {
       const signFormData = new FormData();
       signFormData.append("address", publicKey.toString());
 
+      const authToken = sessionStorage.getItem("authToken");
+
       try {
         const userResponse =
           await fetch('https://buymeatoken-production.up.railway.app/api/user', {
@@ -29,20 +31,26 @@ export default function SignIn() {
             body: addressFormData
           })
 
-        const message = await userResponse.json();
-        // useWallet's signMessage only takes in a uInt8Array param
-        // hence the econding with TextEncoder which returns a uInt8Array
-        const encodedMessage = new TextEncoder().encode(message.message);
-        const signature = await signMessage(encodedMessage);
-        
-        // Convert to base58 (proper Solana format)
-        const signatureBase58 = bs58.encode(signature);
-        signFormData.append("signature", signatureBase58);
-
-        await fetch('https://buymeatoken-production.up.railway.app/api/user/verify', {
-          method: "PUT",
-          body: signFormData
-        })
+        // only require signing on new sessions
+        if (!authToken) {
+          const message = await userResponse.json();
+          // useWallet's signMessage only takes in a uInt8Array param
+          // hence the econding with TextEncoder which returns a uInt8Array
+          const encodedMessage = new TextEncoder().encode(message.message);
+          const signature = await signMessage(encodedMessage);
+          
+          // Convert to base58 (proper Solana format)
+          const signatureBase58 = bs58.encode(signature);
+          signFormData.append("signature", signatureBase58);
+  
+          const verifyResponse = await fetch('https://buymeatoken-production.up.railway.app/api/user/verify', {
+            method: "PUT",
+            body: signFormData
+          })
+  
+          const res = await verifyResponse.json();
+          sessionStorage.setItem("authToken", res.token);
+        }
 
         router.replace('/dashboard');
       } catch (error) {
