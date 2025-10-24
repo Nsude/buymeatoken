@@ -5,12 +5,13 @@ import CardWithButton from "../../../components/dashboard/CardWithButton";
 import EditIcon from "../../../public/icons/EditIcon";
 import { useRouter } from "next/navigation";
 import WithdrawalsInputCard from "../../../components/dashboard/WithdrawalsInputCard";
+import { useCurrentUser } from "../../../components/contexts/UserContextProvider";
 
 export default function Withdrawals() {
+  const {user} = useCurrentUser();
   const router = useRouter();
 
   const handleUpdateAddress = () => {
-    // localStorage.setItem('selectedMenu', 'Settings');
     router.push('/dashboard/settings');
   }
 
@@ -43,7 +44,7 @@ export default function Withdrawals() {
         <div className="w-[40%] h-full min-w-0">
           <CardWithButton
             label="Wallet Address"
-            value={'DyT6CqGVNHHVm9WTkVZJg3Mw4YQ9C9jh3MAx5rKkPPM2'}
+            value={user?.withdrawAddress || ''}
             buttonLabel="Update"
             hideUnit={true}
             buttonIcon={<EditIcon />}

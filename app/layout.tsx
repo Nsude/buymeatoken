@@ -3,6 +3,7 @@ import "./globals.css";
 import "../components/buttons/buttons.css";
 import localFont from 'next/font/local'
 import WalletContextProvider from "../components/contexts/WalletContext";
+import { ButtonLoadingProvider } from "../components/contexts/ButtonLoadingContext";
 
 export const metadata: Metadata = {
   title: "BuyMeAToken",
@@ -34,9 +35,11 @@ export default function RootLayout({
       <body
         className={OldSchoolGrotesk.className}
       >
-        <WalletContextProvider>
-          {children}
-        </WalletContextProvider>
+        <ButtonLoadingProvider>
+          <WalletContextProvider>
+            {children}
+          </WalletContextProvider>
+        </ButtonLoadingProvider>
       </body>
     </html>
   );

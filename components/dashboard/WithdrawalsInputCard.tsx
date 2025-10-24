@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
 import WalletIcon from "../../public/icons/WalletIcon";
 import WithdrawIcon from "../../public/icons/WithdrawIcon";
 import PrimaryButton from "../buttons/PrimaryButton";
+import { useCurrentUser } from "../contexts/UserContextProvider";
 import CustomInputElement from "../global/CustomInput";
 import CopyButton from "./CopyButton";
 
@@ -11,12 +11,9 @@ interface Props {
   handleSubmit: () => void;
 }
 
-export default function WithdrawalsInputCard(
-  {
-    handleSubmit,
-  }: Props
-) {
-  const [withdrawalAmount, setWithdrawalAmount] = useState('');
+export default function WithdrawalsInputCard({handleSubmit}: Props ) {
+  const {user} = useCurrentUser();
+
 
   return (
     <div className="relative w-full h-fit bg-card-bg-gradient rounded-[8px] p-[0.9375rem]">
@@ -56,7 +53,7 @@ export default function WithdrawalsInputCard(
           <CustomInputElement
             placeHolder="type here"
             label="Wallet Address"
-            value="DyT6CqGVNHHVm9WTkVZJg3Mw4YQ9C9jh3MAx5rKkPPM2"
+            value={user?.withdrawAddress || ''}
             onValueChange={() => { }}
             readonly={true}
             addon={<CopyButton />}
