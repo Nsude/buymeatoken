@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import PrimaryButton from "../buttons/PrimaryButton";
 import Logo from "../global/Logo";
 import CollapseIcon from "../../public/icons/CollapseIcon";
@@ -9,7 +9,7 @@ import OverviewIcon from "../../public/icons/OverviewIcon";
 import UserIcon from "../../public/icons/UserIcon";
 import WithdrawIcon from "../../public/icons/WithdrawIcon";
 import MenuItem from "./MenuItem";
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
 
 export default function DashboardNavigation() {
@@ -17,11 +17,13 @@ export default function DashboardNavigation() {
   const { disconnect, select } = useWallet();
   const router = useRouter();
 
-  const lastVisitedMenu = useRef<string>('');
+  const pathname = usePathname();
+  const [lastVisitedMenu, setLastVisitedMenu] = useState('');
 
-  useLayoutEffect(() => {
-    lastVisitedMenu.current = localStorage.getItem("selectedMenu") || 'Overview';
-  }, [])
+  useEffect(() => {
+    const menu = localStorage.getItem("selectedMenu") || 'Overview';
+    setLastVisitedMenu(menu);
+  }, [pathname])
   
     const handleDisconnect = async () => {
       setIsLoading(true);
@@ -55,7 +57,7 @@ export default function DashboardNavigation() {
             label="Overview"
             icon={<OverviewIcon />}
             activities={30}
-            preselect={lastVisitedMenu.current === "Overview"}
+            preselect={lastVisitedMenu === "Overview"}
             handleClick={() => router.push('/dashboard')}
           />
 
@@ -63,7 +65,7 @@ export default function DashboardNavigation() {
             label="Withdrawals"
             icon={<WithdrawIcon />}
             activities={5}
-            preselect={lastVisitedMenu.current === "Withdrawals"}
+            preselect={lastVisitedMenu === "Withdrawals"}
             handleClick={() => router.push('/dashboard/withdrawals')}
           />
         </div>
@@ -75,7 +77,7 @@ export default function DashboardNavigation() {
         <MenuItem
           label="Settings"
           icon={<UserIcon />}
-          preselect={lastVisitedMenu.current === "Settings"}
+          preselect={lastVisitedMenu === "Settings"}
           handleClick={() => router.push('/dashboard/settings')}
         />
       </div>

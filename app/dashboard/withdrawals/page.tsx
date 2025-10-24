@@ -10,6 +10,7 @@ export default function Withdrawals() {
   const router = useRouter();
 
   const handleUpdateAddress = () => {
+    localStorage.setItem('selectedMenu', 'Settings');
     router.push('/dashboard/settings');
   }
 
