@@ -12,6 +12,7 @@ interface Props {
   addon?: React.ReactNode; // icons added to readonly inputs
   onAddonClick?: () => void;
   regex?: RegExp; 
+  errorMsg?: string;
   onValidationChange?: (isValid: boolean) => void; // used to disable or allow sumbition
 }
 
@@ -25,6 +26,7 @@ export default function CustomInputElement({
   addon,
   onAddonClick,
   regex,
+  errorMsg,
   onValidationChange,
 }: Props) {
   const [internalValue, setInternalValue] = useState<string | number>(value);
@@ -89,7 +91,7 @@ export default function CustomInputElement({
       {/* Optional inline error message */}
       {(!isValid && internalValue.toString().trim() !== "")  && (
         <span className="text-red-500 text-sm ml-1.5 absolute bottom-[-1.8rem]">
-          Invalid input format
+          { errorMsg || "Invalid input format"}
         </span>
       )}
     </div>

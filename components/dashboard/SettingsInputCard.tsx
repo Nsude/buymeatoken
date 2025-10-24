@@ -6,10 +6,10 @@ import PrimaryButton from "../buttons/PrimaryButton";
 import CustomInputElement from "../global/CustomInput";
 import CopyButton from "./CopyButton";
 import { useLoadingButton } from "../contexts/ButtonLoadingContext";
-import { ButtonLabel } from "../../app.models";
+import { ButtonLabel, SettingsCardLabel } from "../../app.models";
 
 interface Props {
-  cardLabel: string;
+  cardLabel: SettingsCardLabel;
   cardDesc: string;
   cardIcon: React.ReactNode;
   firstInputLabel: string;
@@ -38,16 +38,16 @@ export default function SettingInputCard(
   }: Props
 ) {
   const newSecondInputValue = useRef<string>('');
-  const [isSecondInputValid, setIsSecondInputValid] = useState(false); 
-  const {loadingKeys} = useLoadingButton()
-  
+  const [isSecondInputValid, setIsSecondInputValid] = useState(false);
+  const { loadingKeys } = useLoadingButton()
+
   const handleValueChange = (value: string | number) => {
     newSecondInputValue.current = value.toString();
   }
 
   const handleCopyValue = () => {
     navigator.clipboard.writeText(firstInputValue)
-    .then(() => { /* display toast notification */ });
+      .then(() => { /* display toast notification */ });
   }
 
   // JSX
@@ -68,14 +68,21 @@ export default function SettingInputCard(
       {/* Inputs */}
       <div className="flex flex-col gap-y-[1.25rem] mb-[3rem]">
         {/* Input 1 */}
-        <CustomInputElement
-          placeHolder={''}
-          label={firstInputLabel}
-          value={firstInputValue}
-          readonly={makeFirstInputReadonly}
-          addon={makeFirstInputReadonly ? <CopyButton /> : null}
-          onAddonClick={handleCopyValue}
-        />
+        <div
+          style={{
+            pointerEvents: firstInputValue.trim() === "" ? "none" : "all",
+            opacity: firstInputValue.trim() === "" ? .3 : 1 
+          }}
+        >
+          <CustomInputElement
+            placeHolder={''}
+            label={firstInputLabel}
+            value={firstInputValue}
+            readonly={makeFirstInputReadonly}
+            addon={makeFirstInputReadonly ? <CopyButton /> : null}
+            onAddonClick={handleCopyValue}
+          />
+        </div>
 
         {/* Input 2 */}
         <div className="flex items-end gap-x-[3px]">
@@ -83,6 +90,11 @@ export default function SettingInputCard(
             placeHolder={secondPlaceholder}
             label={secondInputLabel}
             onValueChange={handleValueChange}
+            errorMsg={
+              cardLabel === "Socials Username" ?
+                "at least 3 chars & no special characters at either end"
+                : "invalid wallet address"
+            }
             regex={secondInputRegex || undefined}
             onValidationChange={setIsSecondInputValid}
           />

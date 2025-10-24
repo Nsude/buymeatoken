@@ -8,3 +8,9 @@ export type ButtonLabel =
   | "Update Wallet Address"
   | "Create Link"
   | "Withdraw"
+
+  
+export type SettingsCardLabel = 
+  | "Socials Username"
+  | "Update Wallet Address"
+  

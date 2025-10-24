@@ -10,6 +10,7 @@ export default function Settings() {
   const { user } = useCurrentUser();
   const {setLoadingButton} = useLoadingButton();
 
+  // update update wallet address
   const updateWalletAddress = async (value: string) => {
     if (!user) return;
 
@@ -44,8 +45,39 @@ export default function Settings() {
     }
   }
 
+  // update username
   const updateUsername = async (value: string) => {
+    if (!user) return;
 
+    // set button loading state
+    setLoadingButton("Update Username", true);
+
+    const endpoint =
+      "https://buymeatoken-production.up.railway.app/api/user/updateUsername";
+
+    const usernameFormData = new FormData();
+    usernameFormData.append("username", value);
+
+      try {
+      const authToken = sessionStorage.getItem("authToken");
+      if (!authToken) throw new Error("Auth Token is undefined");
+
+      const response = await fetch(endpoint, {
+        method: "PUT",
+        headers: {"auth-token": authToken},
+        body: usernameFormData
+      })
+
+      const result = await response.json();
+      console.log(result);
+
+      // TODO: success toast
+    } catch (error) {
+      console.error("Error updating wallet address: ", error);
+      // TODO: Display toast notification
+    } finally {
+      setLoadingButton("Update Username", false);
+    }
   }
 
   return (
@@ -65,9 +97,11 @@ export default function Settings() {
             firstInputLabel="Current"
             makeFirstInputReadonly={true}
             secondInputLabel="New"
-            firstInputValue="Meshach"
+            firstInputValue={user?.username || ""}
             secondPlaceholder="new username"
             buttonTitle="Update Username"
+            // allow at least 3 characters and prevent hyphens and dots at either end
+            secondInputRegex={/^(?![._-])[a-zA-Z0-9._-]{3,}(?<![._-])$/} 
             handleSubmit={updateUsername}
           />
         </div>
