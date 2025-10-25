@@ -45,11 +45,6 @@ export default function SettingInputCard(
     newSecondInputValue.current = value.toString();
   }
 
-  const handleCopyValue = () => {
-    navigator.clipboard.writeText(firstInputValue)
-      .then(() => { /* display toast notification */ });
-  }
-
   // JSX
   return (
     <div className="relative w-full h-fit bg-card-bg-gradient rounded-[8px] p-[0.9375rem]">
@@ -79,8 +74,7 @@ export default function SettingInputCard(
             label={firstInputLabel}
             value={firstInputValue}
             readonly={makeFirstInputReadonly}
-            addon={makeFirstInputReadonly ? <CopyButton /> : null}
-            onAddonClick={handleCopyValue}
+            addon={makeFirstInputReadonly ? <CopyButton valueToCopy={firstInputValue} /> : null}
           />
         </div>
 

@@ -14,7 +14,6 @@ interface Props {
 export default function WithdrawalsInputCard({handleSubmit}: Props ) {
   const {user} = useCurrentUser();
 
-
   return (
     <div className="relative w-full h-fit bg-card-bg-gradient rounded-[8px] p-[0.9375rem]">
       {/* card icon */}
@@ -56,7 +55,7 @@ export default function WithdrawalsInputCard({handleSubmit}: Props ) {
             value={user?.withdrawAddress || ''}
             onValueChange={() => { }}
             readonly={true}
-            addon={<CopyButton />}
+            addon={<CopyButton valueToCopy={user?.withdrawAddress || ''} />}
           />
         </div>
       </div>

@@ -9,7 +9,7 @@ interface Props {
   value?: string | number;
   inputType?: "text" | "number";
   onValueChange?: (value: string | number) => void;
-  addon?: React.ReactNode; // icons added to readonly inputs
+  addon?: React.ReactNode; // add elements to the input and ctrl what happens when they're clicked
   onAddonClick?: () => void;
   regex?: RegExp; 
   errorMsg?: string;
