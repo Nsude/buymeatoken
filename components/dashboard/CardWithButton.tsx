@@ -33,7 +33,7 @@ export default function CardWithButton(
             <span className={` text-white truncate max-w-full
               ${hideUnit ? 'leading-[1.5] text-title' : 'leading-[0.9] text-title-large'}
             `}>
-              {value === 0 ? "0.0" : value}
+              {typeof value === "number" ? value.toFixed(1) : value}
             </span>
             {!hideUnit && <span>SOL</span>}
           </span>

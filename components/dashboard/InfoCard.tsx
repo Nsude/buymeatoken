@@ -25,7 +25,7 @@ export default function InfoCard(
           <span>{firstLabel}</span>
           <span className="flex items-end gap-x-[0.625rem]">
             <span className="text-title-large leading-[0.9] text-white truncate">
-              {value === 0 ? "0.0" : value}
+              {value.toFixed(1)}
             </span>
             <span>SOL</span>
           </span>
@@ -35,7 +35,7 @@ export default function InfoCard(
           <span>USD</span>
           <span className="flex items-end gap-x-[0.625rem]">
             <span className="text-title-large leading-[0.9] text-white truncate">
-              {toUSD === 0 ? "0.00" : toUSD}
+              {toUSD.toFixed(2)}
             </span>
             <span>$</span>
           </span>
