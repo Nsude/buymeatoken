@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import "./dashboard.css";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { UserContextProvider } from "../../components/contexts/UserContextProvider";
+import { BalanceProvider } from "../../components/contexts/BalanceContext";
 
 interface Props {
   children: React.ReactNode;
@@ -32,7 +33,7 @@ export default function DashboardLayout({ children }: Props) {
     try {
       await disconnect();   // disconnects wallet session
       select(null);         // clears wallet selection
-      
+
     } catch (err) {
       console.error("Error disconnecting wallet:", err);
     }
@@ -46,7 +47,9 @@ export default function DashboardLayout({ children }: Props) {
         </div>
 
         <div className="w-full h-full">
-          {children}
+          <BalanceProvider>
+            {children}
+          </BalanceProvider>
         </div>
 
         <span className="absolute right-[1.25rem] top-[1.375rem]">

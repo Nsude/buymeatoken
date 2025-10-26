@@ -6,44 +6,14 @@ import CardWithButton from "../../components/dashboard/CardWithButton";
 import CreateLinkCard from "../../components/dashboard/CreateLinkCard";
 import Transactions from "../../components/dashboard/Transactions";
 import WithdrawIcon from "../../public/icons/WithdrawIcon";
-import { useConnection, useWallet } from "@solana/wallet-adapter-react";
-import { LAMPORTS_PER_SOL } from "@solana/web3.js";
-import { useEffect, useState } from "react";
+import { useBalance } from "../../components/contexts/BalanceContext";
+
 
 export default function Dashboard() {
   const router = useRouter();
-  const { publicKey } = useWallet();
-  const { connection } = useConnection();
-  const [userBalance, setUserBalance] = useState<number>(0);
-  const [balanceToUSD, setBalanceToUSD] = useState<number>(0);
-
-  useEffect(() => {
-    const getUserBalance = async () => {
-      if (!publicKey) return;
+  const {sol, usd, lastUpdated} = useBalance();
   
-      try {
-        const lamports = await connection.getBalance(publicKey);
-        const balance = lamports / LAMPORTS_PER_SOL;
-        setUserBalance(balance);
-
-
-        // convert to USD
-        const currentUSDValueEndpoint = 
-          "https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd"
-        const response = await fetch(currentUSDValueEndpoint);
-        const data = await response.json();
-        const {usd} = data.solana;
-        
-        setBalanceToUSD(usd * balance);
-      } catch (error) {
-        console.error("Error getting balance:", error);
-      }
-    };
-
-    getUserBalance();
-  }, [connection, publicKey])
-
-
+  // reroute to withdrawal screen 
   const handleWithdraw = () => {
     router.push('/dashboard/withdrawals');
   }
@@ -64,15 +34,15 @@ export default function Dashboard() {
         <div className="w-[30%] h-full">
           <InfoCard
             firstLabel="All Time Donations"
-            value={userBalance}
-            toUSD={balanceToUSD}
-            lastUpdated={(Math.floor(Date.now() / 1000) - 120)} // convert to seconds
+            value={sol}
+            toUSD={usd}
+            lastUpdated={(Math.floor((lastUpdated || Date.now()) / 1000))} // convert to seconds
           />
         </div>
         <div className="w-[30%] h-full">
           <CardWithButton
             label="Balance"
-            value={userBalance}
+            value={sol}
             buttonLabel="Withdraw"
             buttonIcon={<WithdrawIcon />}
             handleClick={handleWithdraw}

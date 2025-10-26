@@ -6,9 +6,11 @@ import EditIcon from "../../../public/icons/EditIcon";
 import { useRouter } from "next/navigation";
 import WithdrawalsInputCard from "../../../components/dashboard/WithdrawalsInputCard";
 import { useCurrentUser } from "../../../components/contexts/UserContextProvider";
+import { useBalance } from "../../../components/contexts/BalanceContext";
 
 export default function Withdrawals() {
   const {user} = useCurrentUser();
+  const {sol, usd, lastUpdated} = useBalance();
   const router = useRouter();
 
   const handleUpdateAddress = () => {
@@ -28,17 +30,17 @@ export default function Withdrawals() {
         <div className="w-[30%] h-full">
           <InfoCard
             firstLabel="All Time Donations"
-            value={0}
-            toUSD={0}
-            lastUpdated={(Math.floor(Date.now() / 1000) - 120)} // convert to seconds
+            value={sol}
+            toUSD={usd}
+            lastUpdated={(Math.floor((lastUpdated || Date.now()) / 1000))} // convert to seconds
           />
         </div>
         <div className="w-[30%] h-full">
           <InfoCard
             firstLabel="Wallet"
-            value={0}
-            toUSD={0}
-            lastUpdated={(Math.floor(Date.now() / 1000) - 120)} // convert to seconds
+            value={sol}
+            toUSD={usd}
+            lastUpdated={(Math.floor((lastUpdated || Date.now()) / 1000))}
           />
         </div>
         <div className="w-[40%] h-full min-w-0">
